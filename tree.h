@@ -8,6 +8,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <map>
 using namespace std;
 
 /*
@@ -37,34 +38,87 @@ public:
     U data;
     vector<Node<U>*> children;
 
-    // TODO: Write constructor
-    // Node(const string &nodeID, const U &value);
+    // Write constructor
+    Node(const string &nodeID, const U &value) {
+        id = nodeID;
+        data = value;
+    }
 };
 
 template <typename T>
 class Tree {
 private:
     Node<T>* root;
+    map<string, Node<T>*> nodeMap; // stores all nodes by ID for memory management
 
 public:
-    Tree();
-    // TODO: Initialize root pointer to nullptr
+    //Initialize root pointer to nullptr
+    Tree() {
+        root = nullptr;
+    }
 
-    void createRoot(const string &id, const T &value);
-    // TODO: Allocate memory, assign id, assign data, set as root
+    void createRoot(const string &id, const T &value) {
+        // Allocate memory, assign id, assign data, set as root
+        Node<T>* newNode = new Node<T>(id, value);
+        root = newNode;
+        nodeMap[id] = newNode; //Add to registry
+    }
 
-    void addNode(const string &parentID, const string &childID, const T &value);
-    // TODO: Find parent, create child, link parent to child
-    // TODO: Support repeated children under multiple parents
+    void addNode(const string &parentID, const string &childID, const T &value){
+        // Find parent, create child, link parent to child
+        // Support repeated children under multiple parents
 
-    Node<T>* findNode(const string &id);
-    // TODO: Use DFS or BFS to search tree
+        //Find the parent
+        if (nodeMap.find(parentID) == nodeMap.end()) {
+            cerr<< "Error: Parent " << parentID << " does not exist" << endl;
+            return;
+        }
+        Node<T>* parent = nodeMap[parentID];
 
-    void printAll();
-    // TODO: Print entire structure in readable form
+        // Check if child already exists (shared node logic)
+        Node<T>* child;
+        if (nodeMap.find(childID) != nodeMap.end()) {
+            // Child exists, just link it together
+            child = nodeMap[childID];
+        } else {
+            // Child is new, create and register it
+            child = new Node<T>(childID, value);
+            nodeMap[childID] = child;
+        }
 
-    ~Tree();
-    // TODO: Free all allocated memory
+        //3. Link Parent to child
+        parent->children.push_back(child);
+    }
+
+    Node<T>* findNode(const string &id) {
+        // Use DFS or BFS to search tree
+        if (nodeMap.find(id) != nodeMap.end()) {
+            return nodeMap[id];
+        }
+        return nullptr;
+    }
+
+    void printAll() {
+        // Print entire structure in readable form
+
+        //Iterate through the map to print the full structure
+        for (auto const& [id, node] : nodeMap) {
+            cout << "Node " << id << ": " << node->data << endl;
+            for (auto child : node->children) {
+                cout << "  Child -> " << child->id << endl;
+            }
+            cout << endl;
+        }
+    }
+
+    ~Tree() {
+        //Free all allocated memory by iterating the map
+        //Handles the "multiple parents" issue
+        for (auto const& [id, nodePtr] : nodeMap) {
+            delete nodePtr;
+        }
+    }
+
 };
 
 #endif //FA25EC3_TREE_H
