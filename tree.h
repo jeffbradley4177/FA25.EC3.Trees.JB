@@ -102,7 +102,10 @@ public:
         // Print entire structure in readable form
 
         //Iterate through the map to print the full structure
-        for (auto const& [id, node] : nodeMap) {
+        for (auto const& pair : nodeMap) {
+            string id = pair.first;
+            Node<T>* node = pair.second;
+
             cout << "Node " << id << ": " << node->data << endl;
             for (auto child : node->children) {
                 cout << "  Child -> " << child->id << endl;
@@ -114,11 +117,61 @@ public:
     ~Tree() {
         //Free all allocated memory by iterating the map
         //Handles the "multiple parents" issue
-        for (auto const& [id, nodePtr] : nodeMap) {
+        for (auto const& pair : nodeMap) {
+            Node<T>* nodePtr = pair.second;
             delete nodePtr;
         }
     }
 
+    void playGame() {
+        if (root == nullptr) {
+            cout << "Tree is empty." << endl;
+            return;
+        }
+        Node<T>* current = root;
+
+        while (current != nullptr) {
+            // 1. Display Current Node
+            cout << "---------------------------------" << endl;
+            cout << current->data << endl;
+
+            // 2. Check for End of Game (Leaf Node)
+            if (current->children.empty()) {
+                cout << "---------------------------------" << endl;
+                cout << "The story ends here." << endl;
+                break;
+            }
+
+            // 3. Display Options
+            cout << "Choose your path:" << endl;
+            int optionIndex = 1;
+            for (auto child : current->children) {
+                // Preview the next choice (you can limit characters if desired)
+                cout << optionIndex << ". " << child->data.substr(0, 50) << "..." << endl;
+                optionIndex++;
+            }
+
+            // 4. Get User Input
+            int choice;
+            cout << "> ";
+            cin >> choice;
+
+                // Check if input is actually a number
+                if (!(cin >> choice)) {
+                    cin.clear(); // Clear error flag
+                    cin.ignore(10000, '\n'); // Skip bad input
+                    cout << "Invalid input. Please enter a number." << endl;
+                    continue; // Restart loop
+            }
+
+            // 5. Validation and Traversal
+            if (choice > 0 && choice <= current->children.size()) {
+                current = current->children[choice - 1];
+            } else {
+                cout << "Invalid choice. Try again." << endl;
+            }
+        }
+    }
 };
 
 #endif //FA25EC3_TREE_H
