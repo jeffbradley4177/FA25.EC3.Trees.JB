@@ -104,7 +104,11 @@ int main() {
     string apiKey;
     getline(cin, apiKey);
 
-    string filename = runCurlToOpenAI(apiKey);
+    //COMMENT OUT API CALL FOR NOW
+    //string filename = runCurlToOpenAI(apiKey);
+
+    // BYPASS: Use manual file directly
+    string filename = "story.txt";
 
     vector<StoryNodeRaw> rawNodes = parseStoryFile(filename);
     if (rawNodes.empty()) {
