@@ -14,3 +14,8 @@
 * **Work Done**: Added the playGame() method to tree.h, and started working on the main.cpp file on what needed done
 * **Issues**: Would randomly error out at certain times...Usually a syntax error, but once it might have been just from a wrong approach from an earlier day that I corrected for...hopefully. It is still erroring out, but it is 1am and I am not sure WHY it is erroring out...something about the connection to openAI not working? The port number in a bad range? Will investigate further after sleep...
 * **Files Modified**: developer_log.md, tree.h, main.cpp
+* 
+## [12/1/25] - Changing main.cpp slightly to verify tree functionality
+* **Work Done**: Made a direct call to a premade story.txt file, to verify tree functionality
+* **Issues**: Rewrote main.cpp to call a premade story.txt. It does work this way, but it no longer has OpenAI functionality. Will need to try and fix that somehow, but have no idea WHY....
+* **Files Modified**: developer_log.md, main.cpp, premade story.txt
