@@ -146,8 +146,14 @@ public:
             cout << "Choose your path:" << endl;
             int optionIndex = 1;
             for (auto child : current->children) {
-                // Preview the next choice (you can limit characters if desired)
-                cout << optionIndex << ". " << child->data.substr(0, 50) << "..." << endl;
+                // Take the first 50 characters of the next node's text as a preview
+                string preview = child->data;
+                if (preview.length() > 50) {
+                    preview = preview.substr(0, 50) + "...";
+                }
+
+                // Print "1. You follow the path..." instead of "Choose this path"
+                cout << optionIndex << ". " << preview << endl;
                 optionIndex++;
             }
 

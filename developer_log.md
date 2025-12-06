@@ -19,3 +19,8 @@
 * **Work Done**: Made a direct call to a premade story.txt file, to verify tree functionality
 * **Issues**: Rewrote main.cpp to call a premade story.txt. It does work this way, but it no longer has OpenAI functionality. Will need to try and fix that somehow, but have no idea WHY....
 * **Files Modified**: developer_log.md, main.cpp, premade story.txt
+
+## [12/3/25-12/5/25] - Continued Debugging
+* **Work Done**: Remade OpenAI call. Verified it sometimes works in some ways, and sometimes breaks
+* **Issues**: Now I am really confused. Sometimes, it works fine, and other times not. When it does work, it is buggy (sometimes has 17 children, but never connects to anything), or it'll just fail, saying the curl command is wrong....I am at a bit of a lost now.
+* **Files Modified**: developer_log.md, main.cpp, tree.h
