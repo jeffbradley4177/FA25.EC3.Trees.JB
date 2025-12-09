@@ -60,7 +60,12 @@ string runCurlToOpenAI(const string &apiKey) {
 
     command += " > story.txt";
 
-    cout << "Fetching story from OpenAI (gpt-5-nano)..." << endl;
+    cout << "Fetching story from OpenAI (gpt-4o-mini)..." << endl;
+
+    // DEBUG: Print the exact command so we can inspect it
+    cout << "-----------------------------------------------------" << endl;
+    cout << "DEBUG COMMAND: " << command << endl;
+    cout << "-----------------------------------------------------" << endl;
 
     int result = system(command.c_str());
     if (result != 0) {

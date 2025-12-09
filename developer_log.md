@@ -24,3 +24,9 @@
 * **Work Done**: Remade OpenAI call. Verified it sometimes works in some ways, and sometimes breaks
 * **Issues**: Now I am really confused. Sometimes, it works fine, and other times not. When it does work, it is buggy (sometimes has 17 children, but never connects to anything), or it'll just fail, saying the curl command is wrong....I am at a bit of a lost now.
 * **Files Modified**: developer_log.md, main.cpp, tree.h
+
+## [12/9/25] - Finally Complete?
+* **Work Done**: Remade OpenAI call. Added some debugging codes.
+* **Issues**: I think it should work now? I re-editted a few things slightly in main.cpp and tree.h, adding some debugging lines in hopes of learning how to fix it, and now it works? I think it needed to be rebuilt, and it suddenly works now?
+* **Files Modified**: developer_log.md, main.cpp, tree.h
+* **Notes:**: Personal API Key can be provided if needed. It was done using gpt-4o-mini. Additionally, it can sometimes loop (1->2->4->1), and I cannot seem to break it. Might be a quirk in OpenAI I cannot quite solve?
